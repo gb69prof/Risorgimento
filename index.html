@@ -4,38 +4,244 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Unità d’Italia — lezioni, schemi, PDF</title>
-
+  <meta name="description" content="Lezioni sull’Unità d’Italia: interessi in gioco, Plombières, Villafranca, Spedizione dei Mille, plebisciti e nascita del Regno d’Italia (17 marzo 1861)."/>
   <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 
 <body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="#">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <div>
+          <h1>Unità d’Italia</h1>
+          <p>Lezione + schemi + lettura PDF — versione GitHub Pages</p>
+        </div>
+      </a>
 
-<header class="header">
-  <div class="header-inner">
-    <a class="brand" href="#">
-      <span class="brand-badge"></span>
-      <div>
-        <h1>Unità d’Italia</h1>
-        <p>Lezione + schemi + lettura PDF — versione GitHub Pages</p>
+      <div class="actions">
+        <label class="small" for="themeSelect">Tema</label>
+        <select id="themeSelect" class="select" aria-label="Seleziona tema"></select>
+
+        <!-- ✅ MODALE PDF (LEZIONE + SCHEMI) -->
+        <button class="btn" type="button" data-open-pdf="assets/Unita_d_Italia.pdf">📖 Apri lezione (PDF)</button>
+        <button class="btn" type="button" data-open-pdf="assets/Unita-schemi.pdf">🖥️ Apri schemi LIM (PDF)</button>
+
+        <!-- Download restano -->
+        <a class="btn" href="assets/Unita_d_Italia.pdf" download>⬇️ Scarica lezione (PDF)</a>
+        <a class="btn" href="#lettura" data-scroll>📖 Leggi nell’app</a>
       </div>
-    </a>
+    </div>
+  </header>
 
-    <div class="actions">
-      <label class="small">Tema</label>
-      <select id="themeSelect" class="select"></select>
+  <main class="container">
+    <section class="hero">
+      <div class="card">
+        <div class="card-pad">
+          <div class="kicker">Percorso didattico</div>
+          <h2 class="title">Dallo scontro di interessi all’Unità d’Italia</h2>
+          <p class="subtitle">
+            Piemonte (Cavour + Savoia), Francia (Napoleone III), Austria: tre interessi che si urtano.
+            Da qui: accordi, guerra, plebisciti, annessioni. Esito: <b>17 marzo 1861</b>.
+          </p>
+          <div class="nav">
+            <a class="chip" href="#sintesi" data-scroll>Panoramica</a>
+            <a class="chip" href="#schemi" data-scroll>Schemi</a>
+            <a class="chip" href="#lettura" data-scroll>Lettura PDF</a>
+            <a class="chip" href="#download" data-scroll>Download</a>
+          </div>
+          <hr class="sep"/>
+          <div class="two">
+            <div>
+              <span class="badge">Focus 1</span>
+              <h3 style="margin:8px 0 4px;">Interessi dell’Italia</h3>
+              <ul class="list">
+                <li><b>Piemonte/Cavour</b>: guidare l’unificazione “dall’alto”, rafforzando lo Stato sabaudo.</li>
+                <li><b>Garibaldi</b>: unità nazionale “dal basso”; programma mazziniano adattato: monarchia unitaria sotto i Savoia.</li>
+                <li><b>Vittorio Emanuele II</b>: ambizione dinastica ed espansione territoriale.</li>
+              </ul>
+            </div>
+            <div>
+              <span class="badge">Focus 2</span>
+              <h3 style="margin:8px 0 4px;">Interessi di Francia e Austria</h3>
+              <ul class="list">
+                <li><b>Francia</b>: cacciare l’Austria e sostituirsi ad essa; influenza su centro e sud (piano “regni” legati ai Bonaparte).</li>
+                <li><b>Austria</b>: mantenere il controllo sull’Italia del nord (Lombardo-Veneto) e l’equilibrio europeo.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!-- ✅ NUOVI BOTTONI MODALE -->
-      <button class="btn" onclick="openPdf('assets/docs/Unita_d_Italia.pdf')">
-        📖 Apri lezione (PDF)
-      </button>
+      <div class="card" aria-label="Copertina">
+        <!-- ✅ immagine fullscreen al click -->
+        <img class="cover" data-fullscreen="true" src="assets/img/copertina.png" alt="Copertina: Cavour, Vittorio Emanuele II, Garibaldi (immagine)"/>
+      </div>
+    </section>
 
-      <button class="btn" onclick="openPdf('assets/docs/Unita-schemi.pdf')">
-        🖥️ Apri schemi LIM (PDF)
-      </button>
+    <section id="sintesi">
+      <div class="section-title">
+        <div>
+          <h2>Panoramica rapida</h2>
+          <p>Interessi → accordi → guerra → plebisciti → unità.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <div class="card-pad">
+            <h3 style="margin:0 0 10px;">1) Accordi</h3>
+            <ul class="list">
+              <li><b>Plombières (1858)</b>: intesa tra Piemonte e Francia contro l’Austria; progetto di riassetto della penisola.</li>
+              <li><b>Villafranca (1859)</b>: stop deciso da Napoleone III; Lombardia al Piemonte, Veneto resta all’Austria.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card col-6">
+          <div class="card-pad">
+            <h3 style="margin:0 0 10px;">2) Guerra</h3>
+            <ul class="list">
+              <li><b>Seconda guerra d’indipendenza (1859)</b>: Montebello, Magenta, Solferino/San Martino.</li>
+              <li>Conseguenza politica: l’Italia centrale accelera verso l’annessione.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card col-12">
+          <div class="card-pad">
+            <h3 style="margin:0 0 10px;">3) Plebisciti e annessioni</h3>
+            <ul class="list">
+              <li>Annessioni dell’Italia centrale (1860) e del Mezzogiorno dopo la Spedizione dei Mille.</li>
+              <li>I plebisciti diventano lo strumento “legale” per incorporare i territori nel Regno di Sardegna.</li>
+              <li>Esito: <b>17 marzo 1861</b> proclamazione del Regno d’Italia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="schemi">
+      <div class="section-title">
+        <div>
+          <h2>Schemi visualizzabili (PDF / PPTX)</h2>
+          <p>Scegli cosa vedere: PDF locale (sempre) oppure PPTX (online, su GitHub Pages).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-pad" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div class="tabs" role="tablist" aria-label="Scelta formato schemi">
+            <button id="tabSchemiPdf" class="tab" role="tab" aria-selected="true" type="button">📄 Schemi (PDF)</button>
+            <button id="tabSchemiPptx" class="tab" role="tab" aria-selected="false" type="button">🖥️ Schemi (PPTX)</button>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" type="button" data-open-pdf="assets/Unita-schemi.pdf">🖥️ Apri schemi LIM (PDF)</button>
+            <a class="btn" href="assets/Unita-schemi.pdf" download>⬇️ Scarica schemi (PDF)</a>
+            <a class="btn" href="assets/Unita-schemi.pptx" download>⬇️ Scarica schemi (PPTX)</a>
+          </div>
+        </div>
+
+        <div id="panelSchemiPdf" class="card-pad" role="tabpanel">
+          <iframe class="viewer" title="Schemi in PDF" src="assets/Unita-schemi.pdf#view=FitH"></iframe>
+          <p class="small" style="margin:10px 0 0;">Se non vedi il PDF, prova a ricaricare o usa il download.</p>
+        </div>
+
+        <div id="panelSchemiPptx" class="card-pad" role="tabpanel" hidden>
+          <iframe id="pptxFrame" class="viewer" title="Schemi in PPTX (Office viewer)"></iframe>
+          <p id="pptxNote" class="small" style="margin:10px 0 0;"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="lettura">
+      <div class="section-title">
+        <div>
+          <h2>Leggi la lezione (PDF) dentro il sito</h2>
+          <p>Visualizzazione integrata: scorrimento e zoom dipendono dal browser.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-pad" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <span class="badge">Lezione completa</span>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" type="button" data-open-pdf="assets/Unita_d_Italia.pdf">📖 Apri in modale</button>
+            <a class="btn" href="assets/Unita_d_Italia.pdf" download>⬇️ Scarica</a>
+            <a class="btn" href="#download" data-scroll>🔗 Altri file</a>
+          </div>
+        </div>
+        <div class="card-pad" style="padding-top:0;">
+          <iframe class="viewer" title="Lezione Unità d'Italia (PDF)" src="assets/Unita_d_Italia.pdf#view=FitH"></iframe>
+          <p class="small" style="margin:10px 0 0;">
+            Suggerimento: su iPad/telefono usa “Apri in nuova scheda” se vuoi lo zoom più comodo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="section-title">
+        <div>
+          <h2>Download rapidi</h2>
+          <p>Tutto in un posto: lezione e schemi.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <div class="card-pad">
+            <h3 style="margin:0 0 6px;">Lezione (PDF)</h3>
+            <p class="small" style="margin:0 0 12px;">File: <code>assets/Unita_d_Italia.pdf</code></p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" type="button" data-open-pdf="assets/Unita_d_Italia.pdf">📖 Apri</button>
+              <a class="btn" href="assets/Unita_d_Italia.pdf" download>⬇️ Scarica</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card col-6">
+          <div class="card-pad">
+            <h3 style="margin:0 0 6px;">Schemi (PDF / PPTX)</h3>
+            <p class="small" style="margin:0 0 12px;">File: <code>assets/Unita-schemi.pdf</code> e <code>assets/Unita-schemi.pptx</code></p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" type="button" data-open-pdf="assets/Unita-schemi.pdf">🖥️ Apri PDF</button>
+              <a class="btn" href="assets/Unita-schemi.pdf" download>⬇️ PDF</a>
+              <a class="btn" href="assets/Unita-schemi.pptx" download>⬇️ PPTX</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card col-12">
+          <div class="card-pad">
+            <h3 style="margin:0 0 6px;">Pubblicazione su GitHub Pages</h3>
+            <ol class="list">
+              <li>Crea un repository (es. <code>unita-italia</code>) e carica i file dello zip.</li>
+              <li>Vai su <b>Settings → Pages</b> e scegli <b>Deploy from a branch</b>, branch <b>main</b>, folder <b>/root</b>.</li>
+              <li>Apri l’URL di Pages: la tab “PPTX” inizierà a funzionare (viewer online).</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Progetto didattico — Unità d’Italia • Layout responsive • Tema selezionabile (salvato nel browser)
+    </div>
+  </main>
+
+  <!-- ✅ MODALE UNICA (PDF + IMMAGINI) -->
+  <div id="uModal" class="umodal is-hidden" aria-hidden="true">
+    <div class="umodal-overlay" data-close-modal></div>
+
+    <div class="umodal-panel" role="dialog" aria-modal="true" aria-label="Visualizzatore">
+      <button class="umodal-close btn" type="button" data-close-modal>✖ Chiudi</button>
+
+      <iframe id="uModalFrame" class="umodal-frame is-hidden" title="PDF viewer"></iframe>
+      <img id="uModalImg" class="umodal-img is-hidden" alt="Immagine a schermo intero"/>
     </div>
   </div>
-</header>
 
-<main class="container">
-
-  <!-- CONTENUTO IDENTICO AL TUO -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
