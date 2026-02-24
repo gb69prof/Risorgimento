@@ -1,118 +1,174 @@
+(() => {
+  "use strict";
 
-/* =========================
-   MODALE UNIVERSALE
-========================= */
+  /* =========================
+     HELPERS
+  ========================= */
+  const qs = (sel, root = document) => root.querySelector(sel);
+  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-const modal = document.getElementById("modal");
-const modalFrame = document.getElementById("modalFrame");
-const modalImage = document.getElementById("modalImage");
-
-function openPdf(path) {
-    modal.classList.remove("hidden");
-
-    modalFrame.src = path;
-    modalFrame.classList.remove("hidden");
-
-    modalImage.classList.add("hidden");
-}
-
-function openImage(path) {
-    modal.classList.remove("hidden");
-
-    modalImage.src = path;
-    modalImage.classList.remove("hidden");
-
-    modalFrame.classList.add("hidden");
-}
-
-function closeModal() {
-    modal.classList.add("hidden");
-
-    modalFrame.src = "";
-    modalImage.src = "";
-}
-
-/* =========================
-   CHIUSURA CON ESC
-========================= */
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        closeModal();
-    }
-});
-
-/* =========================
-   IMMAGINI CLICKABILI
-========================= */
-
-document.querySelectorAll("img").forEach(img => {
-    img.addEventListener("click", () => {
-        openImage(img.src);
+  /* =========================
+     SCROLL SOFT (data-scroll)
+  ========================= */
+  qsa('[data-scroll]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href') || '';
+      if (!href.startsWith('#')) return;
+      const target = qs(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-});
+  });
 
-/* =========================
-   SISTEMA TEMI
-========================= */
+  /* =========================
+     TABS SCHEMI (PDF/PPTX)
+  ========================= */
+  const tabPdf = qs('#tabSchemiPdf');
+  const tabPptx = qs('#tabSchemiPptx');
+  const panelPdf = qs('#panelSchemiPdf');
+  const panelPptx = qs('#panelSchemiPptx');
+  const pptxFrame = qs('#pptxFrame');
+  const pptxNote = qs('#pptxNote');
 
-const themes = {
-    light: {
-        "--bg": "#ffffff",
-        "--text": "#111111",
-        "--card": "#f5f5f5"
-    },
-    dark: {
-        "--bg": "#111111",
-        "--text": "#ffffff",
-        "--card": "#1e1e1e"
-    },
-    sepia: {
-        "--bg": "#f4ecd8",
-        "--text": "#5b4636",
-        "--card": "#e8dcc2"
-    },
-    contrast: {
-        "--bg": "#000000",
-        "--text": "#ffff00",
-        "--card": "#000000"
+  function setTab(active) {
+    const isPdf = active === 'pdf';
+    if (tabPdf) tabPdf.setAttribute('aria-selected', String(isPdf));
+    if (tabPptx) tabPptx.setAttribute('aria-selected', String(!isPdf));
+    if (panelPdf) panelPdf.hidden = !isPdf;
+    if (panelPptx) panelPptx.hidden = isPdf;
+
+    // PPTX viewer (Office) – funziona davvero quando sei su GitHub Pages
+    if (!isPdf && pptxFrame) {
+      const pptxPath = 'assets/Unita-schemi.pptx';
+      // Usa URL assoluto della pagina corrente
+      const absolute = new URL(pptxPath, window.location.href).toString();
+      const office = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(absolute)}`;
+      pptxFrame.src = office;
+
+      if (pptxNote) {
+        pptxNote.textContent = 'Nota: la visualizzazione PPTX richiede hosting pubblico (GitHub Pages). Se non si carica, usa il download.';
+      }
     }
-};
+    if (isPdf && pptxFrame) {
+      pptxFrame.src = '';
+      if (pptxNote) pptxNote.textContent = '';
+    }
+  }
 
-const themeSelect = document.getElementById("themeSelect");
+  if (tabPdf) tabPdf.addEventListener('click', () => setTab('pdf'));
+  if (tabPptx) tabPptx.addEventListener('click', () => setTab('pptx'));
 
-function applyTheme(name) {
-    const theme = themes[name];
+  /* =========================
+     MODALE (PDF + IMMAGINI)
+  ========================= */
+  const modal = qs('#uModal');
+  const frame = qs('#uModalFrame');
+  const img = qs('#uModalImg');
 
-    Object.keys(theme).forEach(variable => {
-        document.documentElement.style.setProperty(variable, theme[variable]);
+  function openModal() {
+    if (!modal) return;
+    modal.classList.remove('is-hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.add('is-hidden');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    if (frame) {
+      frame.src = '';
+      frame.classList.add('is-hidden');
+    }
+    if (img) {
+      img.src = '';
+      img.classList.add('is-hidden');
+    }
+  }
+
+  function openPdf(src) {
+    openModal();
+    if (img) img.classList.add('is-hidden');
+    if (frame) {
+      frame.classList.remove('is-hidden');
+      frame.src = `${src}#view=FitH`;
+    }
+  }
+
+  function openImage(src, alt = '') {
+    openModal();
+    if (frame) frame.classList.add('is-hidden');
+    if (img) {
+      img.classList.remove('is-hidden');
+      img.alt = alt || 'Immagine';
+      img.src = src;
+    }
+  }
+
+  // Bottoni che aprono PDF in modale
+  qsa('[data-open-pdf]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const src = btn.getAttribute('data-open-pdf');
+      if (src) openPdf(src);
     });
+  });
 
-    localStorage.setItem("theme", name);
-}
+  // Immagini fullscreen SOLO dove lo chiedi (data-fullscreen="true")
+  qsa('img[data-fullscreen="true"]').forEach(im => {
+    im.addEventListener('click', () => openImage(im.src, im.alt));
+  });
 
-/* =========================
-   POPOLA SELECT TEMI
-========================= */
+  // Chiudi: overlay o bottone
+  qsa('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
 
-function initThemes() {
+  // Chiudi con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('is-hidden')) closeModal();
+  });
+
+  /* =========================
+     TEMI (select + localStorage)
+  ========================= */
+  const themeSelect = qs('#themeSelect');
+  const html = document.documentElement;
+
+  // Mantengo i tuoi 4 + aggiungo LIM
+  const themes = [
+    { value: 'aurora', label: 'Aurora' },
+    { value: 'notte',  label: 'Notte'  },
+    { value: 'neve',   label: 'Neve'   },
+    { value: 'carta',  label: 'Carta'  },
+    { value: 'lim',    label: 'LIM (alto contrasto)' }
+  ];
+
+  function setTheme(value) {
+    html.setAttribute('data-theme', value);
+    localStorage.setItem('theme', value);
+  }
+
+  function initThemeUI() {
     if (!themeSelect) return;
 
-    Object.keys(themes).forEach(themeName => {
-        const option = document.createElement("option");
-        option.value = themeName;
-        option.textContent = themeName;
-        themeSelect.appendChild(option);
+    themeSelect.innerHTML = '';
+    themes.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t.value;
+      opt.textContent = t.label;
+      themeSelect.appendChild(opt);
     });
 
-    const savedTheme = localStorage.getItem("theme") || "light";
+    const saved = localStorage.getItem('theme') || html.getAttribute('data-theme') || 'aurora';
+    themeSelect.value = saved;
+    setTheme(saved);
 
-    themeSelect.value = savedTheme;
-    applyTheme(savedTheme);
+    themeSelect.addEventListener('change', () => setTheme(themeSelect.value));
+  }
 
-    themeSelect.addEventListener("change", () => {
-        applyTheme(themeSelect.value);
-    });
-}
+  initThemeUI();
 
-initThemes();
+  // Tab di default
+  setTab('pdf');
+})();
